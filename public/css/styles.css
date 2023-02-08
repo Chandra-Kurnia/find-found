@@ -1,13 +1,21 @@
-.auth-input, .btn-auth{
+.auth-input, .btn-auth {
     border-radius: 40px;
     height: 50px;
 }
 
-.auth-input{
+.btn-nav {
+    border-radius: 40px;
+    height: 40px;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: black;
+}
+
+.auth-input {
     padding-left: 20px;
 }
 
-.card-auth{
+.card-auth {
     min-height: 50%;
     border-radius: 30px;
     display: flex;
@@ -15,6 +23,54 @@
     padding-left: 20px;
 }
 
-a{
+.auth-container {
+    height: 100vh;
+    background-color: #584fff;
+}
+
+a {
     text-decoration: none;
+}
+
+.logo-auth {
+    width: 100px;
+}
+
+.logo-dashboard {
+    width: 40px;
+}
+
+.link-navigate {
+    color: black;
+    font-weight: 450;
+}
+
+.filter {
+    background: #dcdcde;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.filter-select {
+    border-radius: 40px;
+    background-color: #939396;
+    color: black;
+    font-weight: 600;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.filter-search {
+    border-radius: 40px;
+    font-weight: 600;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.btn-search{
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
 }
