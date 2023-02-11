@@ -8,8 +8,6 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
-use CodeIgniter\Filters\AuthGuard;
-use CodeIgniter\Filters\UserGuard;
 
 class Filters extends BaseConfig
 {
@@ -23,8 +21,8 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'authGuard'     => AuthGuard::class,
-        'userGuard'     => UserGuard::class
+        'authGuard'     => \App\Filters\AuthGuard::class,
+        'userGuard'     => \App\Filters\UserGuard::class
     ];
 
     /**
