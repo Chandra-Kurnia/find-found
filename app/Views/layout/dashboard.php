@@ -16,7 +16,7 @@
         </div>
     </div>
 </nav>
-<div class="filter">
+<!-- <div class="filter">
     <div class="container d-flex justify-content-between">
         <div class="input-group" style="width: 20%;">
             <select class="form-select filter-select">
@@ -31,6 +31,6 @@
             <button class="btn btn-outline-secondary btn-search">Search</button>
         </div>
     </div>
-</div>
+</div> -->
 <?= $this->renderSection('dashboard-content') ?>
 <?= $this->endSection() ?>
