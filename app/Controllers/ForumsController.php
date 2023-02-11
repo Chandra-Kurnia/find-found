@@ -10,12 +10,12 @@ class ForumsController extends BaseController
 
         $category = array('elektronik', 'dompet', 'totebag', 'lain');
         if(in_array($param, $category)){
-            (dd($param));
+            // (dd($param));
+            return view('pages/forums/index');
         }else{
             return redirect()->to('/');
         }
 
-        return view('pages/forums/index');
     }
     public function add()
     {
