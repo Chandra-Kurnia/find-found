@@ -12,7 +12,7 @@
             <a class="nav-link link-navigate" href="">Find Stuff</a>
             <a class="nav-link link-navigate" href="">Maps</a>
             <a class="nav-link link-navigate" href="" tabindex="-1" aria-disabled="true">Profile</a>
-            <button class="btn btn-outline-primary btn-nav">Login</button>
+            <a href="/login" class="btn btn-outline-primary btn-nav">Login</a>
         </div>
     </div>
 </nav>
