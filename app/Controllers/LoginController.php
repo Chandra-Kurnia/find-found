@@ -25,6 +25,9 @@ class LoginController extends BaseController
 
         if ($username == 'user') {
             if ($password == 'pass') {
+                session()->set([
+                    'IS_LOGIN' => true
+                ]);
                 return redirect()->to('/');
             } else {
                 session()->setFlashdata('err-auth', 'Wrong Password!');

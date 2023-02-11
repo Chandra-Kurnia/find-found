@@ -2,10 +2,9 @@
 
 <?= $this->section('auth-content') ?>
 
-<div class="text-center pb-4">
+<!-- <div class="text-center pb-4">
     <h5 class="card-title">Register</h5>
-    <!-- <p class="font-weight-light">Please Login</p> -->
-</div>
+</div> -->
 <?php if (session()->getFlashdata('err-auth')) : ?>
     <div class="alert alert-danger pt-4" role="alert">
         <?= session()->getFlashdata('err-auth') ?>

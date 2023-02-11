@@ -2,10 +2,10 @@
 
 <?= $this->section('auth-content') ?>
 
-<div class="text-center pb-4">
+<!-- <div class="text-center pb-4">
     <h5 class="card-title">Welcome Back</h5>
     <p class="font-weight-light">Please Login</p>
-</div>
+</div> -->
 <?php if (session()->getFlashdata('err-auth')) : ?>
     <div class="alert alert-danger pt-4" role="alert">
         <?= session()->getFlashdata('err-auth') ?>
@@ -20,9 +20,9 @@
         <input type="password" class="form-control auth-input" placeholder="Password" name="password">
     </div>
     <button type="submit" class="btn btn-primary w-100 btn-auth">Login</button> 
-    <a href="/register" class="btn btn-success w-100 btn-auth mt-1 d-flex align-items-center justify-content-center">
-        <span>Register</span>
-    </a>
+    <div class=" text-center pt-3">
+        <span>Dont have account ? <a href="/register">Register</a></span>
+    </div>
 </form>
 <!-- <div class="text-center pt-5 d-flex flex-column">
     <a href="">Forgot Password?</a>
