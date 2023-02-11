@@ -47,7 +47,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">Lain - Lain</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/forums/more" class="btn btn-primary w-75">Select</a>
+                    <a href="/forums/lain" class="btn btn-primary w-75">Select</a>
                 </div>
             </div>
         </div>
