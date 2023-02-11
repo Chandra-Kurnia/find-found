@@ -13,26 +13,16 @@
                 <a class="nav-link link-navigate" href="">Find Stuff</a>
                 <a class="nav-link link-navigate" href="">Maps</a>
                 <a class="nav-link link-navigate" href="" tabindex="-1" aria-disabled="true">Profile</a>
-                <a href="/login" class="btn btn-outline-primary btn-nav">Login</a>
+                <?php if (!session()->get('IS_LOGIN')) : ?>
+                    <a href="/login" class="btn btn-outline-primary btn-nav">Login</a>
+                <?php else : ?>
+                    <form action="/logout" method="post">
+                        <button type="submit" class="btn btn-outline-danger btn-nav">Logout</button>
+                    </form>
+                <?php endif ?>
             </div>
         </div>
     </nav>
-    <!-- <div class="filter">
-        <div class="container d-flex justify-content-between">
-            <div class="input-group" style="width: 20%;">
-                <select class="form-select filter-select">
-                    <option selected>Select Category</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-            </div>
-            <div class="input-group" style="width: 79%;">
-                <input type="text" class="form-control filter-search" placeholder="Search...">
-                <button class="btn btn-outline-secondary btn-search">Search</button>
-            </div>
-        </div>
-    </div> -->
     <?= $this->renderSection('dashboard-content') ?>
 </div>
 <?= $this->endSection() ?>

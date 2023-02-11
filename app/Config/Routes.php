@@ -35,9 +35,12 @@ $routes->get('/add-forum', 'ForumsController::add', ['filter' => 'authGuard']);
 
 // Route without login
 $routes->get('/login', 'LoginController::index', ['filter' => 'userGuard']);
+$routes->post('/login', 'LoginController::login');
+$routes->post('/logout', 'LoginController::logout');
 $routes->get('/register', 'RegisterController::index', ['filter' => 'userGuard']);
-$routes->get('/', 'DashboardController::index', ['filter' => 'userGuard']);
-$routes->get('/forums', 'ForumsController::index', ['filter' => 'userGuard']);
+$routes->post('/register', 'RegisterController::register');
+$routes->get('/', 'DashboardController::index');
+$routes->get('/forums/(:any)', 'ForumsController::index/$1');
 
 /*
  * --------------------------------------------------------------------
