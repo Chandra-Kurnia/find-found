@@ -27,7 +27,8 @@
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlTextarea1">Deskripsi</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Deskrpsi Dari Barang"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    placeholder="Deskrpsi Dari Barang"></textarea>
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlFile1">Foto Barang</label>

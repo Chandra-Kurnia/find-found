@@ -12,4 +12,8 @@ class ForumsController extends BaseController
     {
         return view('pages/forums/add-forum');
     }
+    public function detail()
+    {
+        return view('pages/forums/detail-forum');
+    }
 }
