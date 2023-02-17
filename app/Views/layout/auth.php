@@ -8,6 +8,11 @@
             <img src="/images/find-logo.png" class="logo-auth">
         </div>
         <div class="card-body">
+            <?php if (session()->getFlashdata('err-auth')) : ?>
+                <div class="alert alert-danger pt-4 text-center" role="alert">
+                    <?= session()->getFlashdata('err-auth') ?>
+                </div>
+            <?php endif; ?>
             <?= $this->renderSection('auth-content') ?>
         </div>
     </div>

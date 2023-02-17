@@ -6,11 +6,6 @@
     <h5 class="card-title">Welcome Back</h5>
     <p class="font-weight-light">Please Login</p>
 </div> -->
-<?php if (session()->getFlashdata('err-auth')) : ?>
-    <div class="alert alert-danger pt-4" role="alert">
-        <?= session()->getFlashdata('err-auth') ?>
-    </div>
-<?php endif; ?>
 <form method="post" action="/login">
     <?= csrf_field() ?>
     <div class="mb-3">

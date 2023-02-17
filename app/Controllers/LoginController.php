@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\Users;
+
 class LoginController extends BaseController
 {
     public function index()
@@ -23,9 +25,18 @@ class LoginController extends BaseController
             return redirect()->to('/login')->withInput();
         }
 
-        if ($username == 'user') {
-            if ($password == 'pass') {
+        $userModel = new Users();
+
+        $user = $userModel->where('username', $username)->join('roles', 'roles.role_id = users.role_id', 'left')->first();
+
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
                 session()->set([
+                    'user_id'       => $user['user_id'],
+                    'role_id'       => $user['role_id'],
+                    'name'          => $user['name'],
+                    'username'      => $user['username'],
+                    'profile_photo' => $user['profile_photo'],
                     'IS_LOGIN' => true
                 ]);
                 return redirect()->to('/');
