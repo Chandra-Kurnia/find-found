@@ -30,8 +30,8 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-// Route with login
-$routes->get('/add-forum', 'ForumsController::add', ['filter' => 'authGuard']);
+// Route with login admin
+$routes->get('/add-forum', 'ForumsController::add', ['filter' => 'adminGuard']);
 $routes->get('/detail-forum', 'ForumsController::detail', ['filter' => 'authGuard']);
 
 // Route without login
@@ -42,7 +42,8 @@ $routes->get('/register', 'RegisterController::index', ['filter' => 'userGuard']
 $routes->post('/register', 'RegisterController::register');
 $routes->get('/', 'DashboardController::index');
 $routes->get('/forums/(:any)', 'ForumsController::index/$1');
-$routes->get('/profile', 'ProfileController::index',);
+$routes->get('/profile', 'ProfileController::index', ['filter' => 'authGuard']);
+$routes->post('/update-profile', 'ProfileController::update');
 
 /*
  * --------------------------------------------------------------------

@@ -1,8 +1,8 @@
 <?= $this->extend('layout/main') ?>
 
 <?= $this->section('main-content') ?>
-<div class="dashboard-layout">
-    <nav class="navbar navbar-light bg-light">
+<div class="dashboard-layout mt-5 pt-3">
+    <nav class="navbar navbar-light bg-light fixed-top">
         <div class="container">
             <a class="navbar-brand d-flex justify-content-center align-items-center" href="/">
                 <img src="/images/find-logo.png" alt="logo" class="d-inline-block align-text-top logo-dashboard">

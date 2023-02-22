@@ -97,3 +97,8 @@ a {
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
 }
+
+.input-profile{
+    border: none;
+    outline: none;
+}
