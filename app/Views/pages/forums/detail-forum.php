@@ -20,34 +20,27 @@
 
         <div class="card" style="width: 100%;">
             <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <div class="chat-box">
+                <div class="col-lg-8 col-md-10 mx-auto py-3">
+                    <div class="chat-box py-3">
                         <div class="message-box">
                             <div class="message-sender d-flex">
-                                <div class="sender-image">
-                                    <img src="https://via.placeholder.com/40x40" class="rounded-circle">
+                                <div class="sender-image" style="margin-right: 10px;">
+                                    <img src="/images/user.png" class="rounded-circle" width="45px">
                                 </div>
                                 <div class="sender-info">
-                                    <p class="sender-name mb-0">User1</p>
-                                    <p class="sent-time mb-0">12:30 PM</p>
+                                    <p class="sender-name mb-0" style="font-weight: 600">Useraaa1</p>
+                                    <p class="sent-time mb-0" style="font-size: small; color:grey;">12:30 PM</p>
                                 </div>
                             </div>
                             <div class="message-content">
-                                <p>ini kan barang yang hilang</p>
-                            </div>
-                        </div>
-                        <div class="message-box">
-                            <div class="message-sender d-flex">
-                                <div class="sender-image">
-                                    <img src="https://via.placeholder.com/40x40" class="rounded-circle">
+                                <p style="margin-bottom: 0;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim perspiciatis animi labore temporibus dolores impedit maxime placeat eius culpa molestias voluptas, dolore assumenda. Iusto delectus quidem doloremque, quisquam hic aut?</p>
+                                <div class="mt-0">
+                                    <!-- <a href="" style="color:grey;">edit</a>
+                                    <a href="" style="color:grey;">hapus</a> -->
+                                    <button class="btn-control-comment">Edit</button>
+                                    <button class="btn-control-comment">Hapus</button>
+                                    <button class="btn-control-comment">Report</button>
                                 </div>
-                                <div class="sender-info">
-                                    <p class="sender-name mb-0">User2</p>
-                                    <p class="sent-time mb-0">12:31 PM</p>
-                                </div>
-                            </div>
-                            <div class="message-content">
-                                <p>Iya ini barangnya hilang</p>
                             </div>
                         </div>
                     </div>

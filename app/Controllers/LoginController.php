@@ -34,6 +34,7 @@ class LoginController extends BaseController
                 session()->set([
                     'user_id'       => $user['user_id'],
                     'role_id'       => $user['role_id'],
+                    'role_name'     => $user['role_name'],
                     'name'          => $user['name'],
                     'username'      => $user['username'],
                     'profile_photo' => $user['profile_photo'],

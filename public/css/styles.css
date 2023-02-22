@@ -32,9 +32,19 @@
 
 .dashboard-layout {
     background-image: url('../images/bg-body.jpg');
-    height: 100vh;
+    min-height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.btn-control-comment{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    color: grey;
 }
 
 .card-category{

@@ -9,15 +9,31 @@
                 <span>Find and Found</span>
             </a>
             <div class="d-flex">
-                <a class="nav-link link-navigate active" href="/">Home</a>
+                <!-- <a class="nav-link link-navigate active" href="/">Home</a>
                 <a class="nav-link link-navigate" href="">Find Stuff</a>
                 <a class="nav-link link-navigate" href="">Maps</a>
-                <a class="nav-link link-navigate" href="" tabindex="-1" aria-disabled="true">Profile</a>
+                <a class="nav-link link-navigate" href="" tabindex="-1" aria-disabled="true">Profile</a> -->
                 <?php if (!session()->get('IS_LOGIN')) : ?>
                     <a href="/login" class="btn btn-outline-primary btn-nav">Login</a>
                 <?php else : ?>
                     <form action="/logout" method="post">
-                        <button type="submit" class="btn btn-outline-danger btn-nav">Logout</button>
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <div class="dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="/images/user.png" alt="" width="30px">
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownProfile">
+                                    <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                    <li>
+                                        <!-- <a class="dropdown-item" href="#">Logout</a> -->
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="">
+                                <span><?= session()->get('role_name') ?></span>
+                            </div>
+                        </div>
                     </form>
                 <?php endif ?>
             </div>

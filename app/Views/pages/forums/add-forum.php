@@ -32,7 +32,7 @@
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlFile1">Foto Barang</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                <input multiple type="file" class="form-control-file" id="exampleFormControlFile1">
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlInput1">Lokasi Ditemukan / Lokasi Hilang</label>
