@@ -3,6 +3,8 @@
 <?= $this->section('dashboard-content') ?>
 
 <div class="container mt-5">
+  <?php if(session()->get('role_name') == 'admin') : ?>
+  <?php endif ; ?>
   <a href="/add-forum" class="btn btn-primary mb-3">Tambah Forum</a>
   <div class="row">
     <div class="col-24">

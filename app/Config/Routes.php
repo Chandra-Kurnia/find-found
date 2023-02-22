@@ -42,6 +42,7 @@ $routes->get('/register', 'RegisterController::index', ['filter' => 'userGuard']
 $routes->post('/register', 'RegisterController::register');
 $routes->get('/', 'DashboardController::index');
 $routes->get('/forums/(:any)', 'ForumsController::index/$1');
+$routes->get('/profile', 'ProfileController::index',);
 
 /*
  * --------------------------------------------------------------------
