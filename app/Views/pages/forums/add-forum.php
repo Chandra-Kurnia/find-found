@@ -3,7 +3,7 @@
 <?= $this->section('dashboard-content') ?>
 <div class="container d-flex justify-content-center align-items-center rounded-circle mt-5">
     <div class="bg-white border rounded-5" style="width: 80%; padding: 15px">
-
+    <h3>Buat Forum</h3>
         <form>
             <div class="form-group mb-3">
                 <label for="exampleFormControlSelect1">Pilih Label</label>
