@@ -31,8 +31,9 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 
 // Route with login admin
-$routes->get('/add-forum', 'ForumsController::add', ['filter' => 'adminGuard']);
-$routes->get('/detail-forum', 'ForumsController::detail', ['filter' => 'authGuard']);
+$routes->get('/add-forum', 'ForumsController::create', ['filter' => 'adminGuard']);
+$routes->post('/add-forum', 'ForumsController::store');
+$routes->get('/detail-forum/(:any)', 'ForumsController::show/$1', ['filter' => 'authGuard']);
 
 // Route without login
 $routes->get('/login', 'LoginController::index', ['filter' => 'userGuard']);

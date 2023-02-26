@@ -10,6 +10,7 @@ class Forums extends Model
     protected $allowedFields    = [
         'forum_id',
         'user_id',
+        'status_id',
         'category_id',
         'title',
         'description',

@@ -21,6 +21,7 @@
                 <div class="card mb-4 shadow-lg">
                     <div class="card-body">
                         <form action="/update-profile" method="post">
+                            <?= csrf_field() ?>
                             <h2>My Profile</h2>
                             <hr>
                             <div class="row">

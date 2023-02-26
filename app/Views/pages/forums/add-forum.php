@@ -1,9 +1,9 @@
 <?= $this->extend('layout/dashboard') ?>
 
 <?= $this->section('dashboard-content') ?>
-<div class="container d-flex justify-content-center align-items-center rounded-circle mt-5">
+<!-- <div class="container d-flex justify-content-center align-items-center rounded-circle mt-5">
     <div class="bg-white border rounded-5" style="width: 80%; padding: 15px">
-    <h3>Buat Forum</h3>
+        <h3>Buat Forum</h3>
         <form>
             <div class="form-group mb-3">
                 <label for="exampleFormControlSelect1">Pilih Label</label>
@@ -27,8 +27,7 @@
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlTextarea1">Deskripsi</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                    placeholder="Deskrpsi Dari Barang"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Deskrpsi Dari Barang"></textarea>
             </div>
             <div class="form-group mb-3">
                 <label for="exampleFormControlFile1">Foto Barang</label>
@@ -43,6 +42,97 @@
             </div>
         </form>
     </div>
-</div>
+</div> -->
 
+<!-- new add -->
+<div class="container py-3">
+    <div class="row d-flex justify-content-center">
+        <div class="col-10">
+            <div class="card mb-4 shadow-lg">
+                <div class="card-body">
+                    <?php if (session()->getFlashdata('err-add-forums')) : ?>
+                        <div class="alert alert-danger mt-3 text-left">
+                            <?= session()->getFlashdata('err-add-forums') ?>
+                        </div>
+                    <?php endif; ?>
+                    <form action="/add-forum" method="post" enctype="multipart/form-data">
+                        <?= csrf_field() ?>
+                        <h2>Tambah Forum</h2>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3 m-auto">
+                                <p class="mb-0">Label</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <select class="form-control" name="status" required>
+                                        <option>-- Pilih Label --</option>
+                                        <?php foreach ($statuses as $statues) : ?>
+                                            <option value="<?= $statues['status_id'] ?>"><?= $statues['status_name'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3 m-auto">
+                                <p class="mb-0">Kategori</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <select class="form-control" name="category" required>
+                                        <option>-- Pilih Kategori --</option>
+                                        <?php foreach ($categories as $category) : ?>
+                                            <option value="<?= $category['category_id'] ?>"><?= $category['category_name'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3 m-auto">
+                                <p class="mb-0">Nama Forum</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Nama Forum" name="title" required>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Deskripsi Forum</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" placeholder="Deskripsi Forum" required name="description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Foto barang / forum</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <input multiple type="file" id="gambar-forum" name="images[]" class="form-control" required>
+                                </div>
+                                <div class="row mt-3" id="preview-gambar-forum">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex w-100 justify-content-end">
+                            <button class="btn btn-primary" type="submit">Simpan Forum</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <?= $this->endSection() ?>
