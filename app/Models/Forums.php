@@ -14,6 +14,8 @@ class Forums extends Model
         'category_id',
         'title',
         'description',
+        'latitude',
+        'longitude',
         'flag_active'
     ];
 }

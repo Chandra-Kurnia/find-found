@@ -66,6 +66,11 @@
                 <h5 class="card-title"><?= $forum['title'] ?></h5>
                 <p class="card-text"><?= $forum['description'] ?></p>
             </div>
+
+            <input type="hidden" name="latitude" id="latitude-detail" value="<?= $forum['latitude'] ?>">
+            <input type="hidden" name="longitude" id="longitude-detail" value="<?= $forum['longitude'] ?>">
+            <div id="map" style="height: 300px;"></div>
+
         </div>
 
         <div class="card" style="width: 100%;">

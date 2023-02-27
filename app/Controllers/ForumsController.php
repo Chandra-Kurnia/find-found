@@ -45,7 +45,7 @@ class ForumsController extends BaseController
 
     public function store()
     {
-        // dd($this->request->getVar());
+        // dd($this->request->getVar('latitude'));
         $forumModel = new Forums();
         $photosModel = new Photos();
 
@@ -74,14 +74,19 @@ class ForumsController extends BaseController
                     'required'      => 'Nama Forum harus diisi !',
                     'max_length'    => 'Maksimal deskripsi 200 karakter !'
                 ]
+            ],
+            'latitude'     => [
+                'rules'     => 'required',
+                'errors'    => [
+                    'required'      => 'Latitude harus diisi !'
+                ]
+            ],
+            'longitude'     => [
+                'rules'     => 'required',
+                'errors'    => [
+                    'required'      => 'Longitude harus diisi !'
+                ]
             ]
-            // 'images'    => [
-            //     'rules'     => 'required|max_size[gambar,10240]|max_files[gambar,6]',
-            //     'errors'    => [
-            //         'max_files'     => 'Jumlah file yang diunggah maksimum adalah 6 !',
-            //         'max_size'      => 'Ukuran file yang diunggah maksimum 10MB !',
-            //     ]
-            // ]
         ];
 
         if (!$this->validate($rules)) {
@@ -95,6 +100,8 @@ class ForumsController extends BaseController
             'status_id'   => $this->request->getVar('status'),
             'title'   => $this->request->getVar('title'),
             'description'   => $this->request->getVar('description'),
+            'latitude'   => $this->request->getVar('latitude'),
+            'longitude'   => $this->request->getVar('longitude')
         ];
 
         $forumModel->save($dataForum);

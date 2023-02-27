@@ -126,7 +126,28 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="d-flex w-100 justify-content-end">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Lokasi (Latitude - Longitude)</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Latitude" name="latitude" required disabled id="input-latitude">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Longitude" name="longitude" required disabled id="input-longitude">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div id="map" style="height: 300px;"></div>
+                        <div class="d-flex w-100 justify-content-end mt-3">
                             <button class="btn btn-primary" type="submit">Simpan Forum</button>
                         </div>
                     </form>
