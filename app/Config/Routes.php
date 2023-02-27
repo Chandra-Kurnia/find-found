@@ -30,21 +30,29 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-// Route with login admin
-$routes->get('/add-forum', 'ForumsController::create', ['filter' => 'adminGuard']);
-$routes->post('/add-forum', 'ForumsController::store');
-$routes->get('/detail-forum/(:any)', 'ForumsController::show/$1', ['filter' => 'authGuard']);
-
 // Route without login
 $routes->get('/login', 'LoginController::index', ['filter' => 'userGuard']);
-$routes->post('/login', 'LoginController::login');
-$routes->post('/logout', 'LoginController::logout');
 $routes->get('/register', 'RegisterController::index', ['filter' => 'userGuard']);
-$routes->post('/register', 'RegisterController::register');
 $routes->get('/', 'DashboardController::index');
 $routes->get('/forums/(:any)', 'ForumsController::index/$1');
+
+// Route with login admin
+$routes->get('/add-forum', 'ForumsController::create', ['filter' => 'adminGuard']);
+$routes->get('/detail-forum/(:any)', 'ForumsController::show/$1', ['filter' => 'authGuard']);
+
+// Route with login
 $routes->get('/profile', 'ProfileController::index', ['filter' => 'authGuard']);
+
+// System Route
+$routes->post('/login', 'LoginController::login');
+$routes->post('/logout', 'LoginController::logout');
+$routes->post('/register', 'RegisterController::register');
+$routes->post('/add-forum', 'ForumsController::store');
 $routes->post('/update-profile', 'ProfileController::update');
+$routes->post('/post-comment/(:any)', 'CommentController::store/$1');
+$routes->post('/delete-comment/(:any)/(:any)', 'CommentController::delete/$1/$2');
+$routes->post('/close-forum/(:any)', 'ForumsController::close_forum/$1');
+$routes->post('/delete-forum/(:any)', 'ForumsController::delete_forum/$1');
 
 /*
  * --------------------------------------------------------------------

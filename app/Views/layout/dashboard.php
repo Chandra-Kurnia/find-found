@@ -30,9 +30,6 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="">
-                                <span><?= session()->get('role_name') ?></span>
-                            </div>
                         </div>
                     </form>
                 <?php endif ?>

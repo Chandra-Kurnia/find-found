@@ -6,6 +6,7 @@ use App\Models\Forums;
 use App\Models\Categories;
 use App\Models\Status;
 use App\Models\Photos;
+use App\Models\Comments;
 
 class ForumsController extends BaseController
 {
@@ -18,7 +19,7 @@ class ForumsController extends BaseController
             return redirect()->to('/');
         }
 
-        $forums = $forumModel->join('users', 'forums.user_id = users.user_id', 'left')->join('status', 'status.status_id = forums.status_id', 'left')->where('forums.category_id', $param)->findAll();
+        $forums = $forumModel->join('users', 'forums.user_id = users.user_id', 'left')->join('status', 'status.status_id = forums.status_id', 'left')->where('flag_active', '1')->where('forums.category_id', $param)->findAll();
 
         // dd($forums);
         $data = [
@@ -105,20 +106,61 @@ class ForumsController extends BaseController
         foreach ($imagesRequest as $image) {
             $newName = $image->getRandomName();
             $image->move(ROOTPATH . 'public/images/forum', $newName);
-            array_push($forumImage,[
+            array_push($forumImage, [
                 'forum_id'  => $idForumInserted,
-                'path'      => 'public/images/forum'.$newName
+                'path'      => '/images/forum/' . $newName
             ]);
         }
-        
+
         $photosModel->insertBatch($forumImage);
 
         session()->setFlashdata('msg-add-forums', 'Sukses menambahkan forum baru!');
-        return redirect()->to('/forums/'.$this->request->getVar('category'));
+        return redirect()->to('/forums/' . $this->request->getVar('category'));
     }
 
-    public function show()
+    public function show($param)
     {
-        return view('pages/forums/detail-forum');
+        $forumModel = new Forums();
+        $photosModel = new Photos();
+        $commentsModel = new Comments();
+
+        $forum = $forumModel->join('users', 'forums.user_id = users.user_id', 'left')
+            ->join('status', 'status.status_id = forums.status_id')
+            ->where('forum_id', $param)
+            ->select('forums.*, users.username, status.status_name')->first();
+
+        $photos = $photosModel->where('forum_id', $param)->findAll();
+
+        $comments = $commentsModel->join('users', 'users.user_id = comments.user_id')
+            ->select('comments.*, users.profile_photo, users.username')
+            ->where('forum_id', $param)->orderBy('created_at', 'desc')->findAll();
+
+        $data = [
+            'forum'     => $forum,
+            'photos'    => $photos,
+            'comments'  => $comments
+        ];
+        // dd($forum);
+        return view('pages/forums/detail-forum', $data);
+    }
+
+    public function update()
+    {
+    }
+
+    public function close_forum($param)
+    {
+        $forumModel = new Forums();
+        $forumModel->set('status_id', '3')->where('forum_id', $param)->update();
+
+        return redirect()->to('/');
+    }
+
+    public function delete_forum($param)
+    {
+        $forumModel = new Forums();
+        $forumModel->set('flag_active', '0')->where('forum_id', $param)->update();
+
+        return redirect()->to('/');
     }
 }

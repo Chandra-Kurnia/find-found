@@ -13,6 +13,7 @@ class ProfileController extends BaseController
 
     public function update()
     {
+        dd($this->request->getFile('profile_photo'));
         $userModel = new Users();
         $userId = session()->get('user_id');
         $user = $userModel->find($userId);
