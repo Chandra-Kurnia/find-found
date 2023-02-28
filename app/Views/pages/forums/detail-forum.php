@@ -97,8 +97,8 @@
                             <div class="chat-box py-3">
                                 <div class="message-box">
                                     <div class="message-sender d-flex">
-                                        <div class="sender-image" style="margin-right: 10px;">
-                                            <img src="<?= $comment['profile_photo'] ?>" class="rounded-circle" width="45px">
+                                        <div class="sender-image rounded-circle" style="margin-right: 10px; width: 45px; height: 45px">
+                                            <img src="<?= $comment['profile_photo'] ?>" class="rounded-circle w-100 h-100">
                                         </div>
                                         <div class="sender-info">
                                             <p class="sender-name mb-0" style="font-weight: 600"><?= $comment['username'] ?></p>
@@ -109,14 +109,36 @@
                                         <p style="margin-bottom: 0;"><?= $comment['comment'] ?></p>
                                         <div class="mt-0">
                                             <?php if (session()->get('role_name') == 'admin') : ?>
-                                                <button class="btn-control-comment">Edit</button>
                                                 <button class="btn-control-comment" data-bs-toggle="modal" data-bs-target="#konfirmasi-hapus-<?= $comment['comment_id'] ?>">Hapus</button>
                                             <?php elseif (session()->get('user_id') == $comment['user_id']) : ?>
-                                                <button class="btn-control-comment">Edit</button>
+                                                <button class="btn-control-comment" data-bs-toggle="modal" data-bs-target="#edit-comment-<?= $comment['comment_id'] ?>">Edit</button>
                                                 <button class="btn-control-comment" data-bs-toggle="modal" data-bs-target="#konfirmasi-hapus-<?= $comment['comment_id'] ?>">Hapus</button>
                                             <?php else : ?>
-                                                <button class="btn-control-comment">Report</button>
+                                                <!-- <button class="btn-control-comment">Report</button> -->
                                             <?php endif; ?>
+
+                                            <!-- Modal Edit Komen -->
+                                            <div class="modal fade" id="edit-comment-<?= $comment['comment_id'] ?>">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <form action="/update-comment/<?= $comment['comment_id'] ?>/<?= $forum['forum_id'] ?>" method="post">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="edit-commentLabel">Edit Komentar</h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control" placeholder="Ketik Komentar Anda" value="<?= $comment['comment'] ?>" name="updated-comment">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                         <!-- Modal konfirmasi hapus komen -->

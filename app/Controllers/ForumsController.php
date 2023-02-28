@@ -141,6 +141,10 @@ class ForumsController extends BaseController
             ->where('forum_id', $param)
             ->select('forums.*, users.username, status.status_name')->first();
 
+        if(!$forum){
+            return redirect()->to('/');
+        }
+
         $photos = $photosModel->where('forum_id', $param)->findAll();
 
         $comments = $commentsModel->join('users', 'users.user_id = comments.user_id')
@@ -152,7 +156,6 @@ class ForumsController extends BaseController
             'photos'    => $photos,
             'comments'  => $comments
         ];
-        // dd($forum);
         return view('pages/forums/detail-forum', $data);
     }
 

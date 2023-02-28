@@ -55,6 +55,7 @@ $routes->post('/delete-comment/(:any)/(:any)', 'CommentController::delete/$1/$2'
 $routes->post('/close-forum/(:any)', 'ForumsController::close_forum/$1');
 $routes->post('/delete-forum/(:any)', 'ForumsController::delete_forum/$1');
 $routes->post('/update-forum/(:any)', 'ForumsController::update/$1');
+$routes->post('/update-comment/(:any)/(:any)', 'CommentController::update/$1/$2');
 
 /*
  * --------------------------------------------------------------------

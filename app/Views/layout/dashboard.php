@@ -19,9 +19,11 @@
                     <form action="/logout" method="post">
                         <div class="d-flex justify-content-between align-items-center w-100">
                             <div class="dropdown">
-                                <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="/images/user.png" alt="" width="30px">
-                                </a>
+                                <!-- <button class="btn btn-secondary d-flex" type="button" id="dropdownProfile" data-bs-toggle="dropdown" aria-expanded="false">
+                                </button> -->
+                                <div style="width: 30px; height: 30px; cursor:pointer" id="dropdownProfile" data-bs-toggle="dropdown">
+                                    <img src="<?= session()->get('profile_photo') ?>" class=" w-100 h-100 rounded-circle">
+                                </div>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownProfile">
                                     <li><a class="dropdown-item" href="/profile">Profile</a></li>
                                     <li>

@@ -34,10 +34,17 @@ class CommentController extends BaseController
         return redirect()->to('/detail-forum/' . $param);
     }
 
+    public function update($comment_id, $forum_id)
+    {
+        $commentsModel = new Comments();
+        $commentsModel->set('comment', $this->request->getVar('updated-comment'))->where('comment_id', $comment_id)->update();
+        return redirect()->to('/detail-forum/' . $forum_id);
+    }
+
     public function delete($comment_id, $forum_id)
     {
         $commentsModel = new Comments();
         $commentsModel->delete($comment_id);
-        return redirect()->to('/detail-forum/'.$forum_id);
+        return redirect()->to('/detail-forum/' . $forum_id);
     }
 }

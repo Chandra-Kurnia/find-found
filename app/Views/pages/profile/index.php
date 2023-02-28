@@ -9,8 +9,8 @@
                 <div class="col-lg-4">
                     <div class="card mb-4 shadow-lg">
                         <div class="card-body text-center">
-                            <img src="<?= session()->get('profile_photo') ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                            <!-- <input type="file" class="dropify" id="dropify" data-default-file="" name="profile_photo" required> -->
+                            <!-- <img src="" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;"> -->
+                            <input type="file" class="dropify" id="dropify" data-default-file="<?= session()->get('profile_photo') ?>" name="profile_photo">
                             <h5 class="my-3"><?= session()->get('username') ?></h5>
                             <p class="text-muted">Welcome <?= session()->get('username') ?>, you are <?= session()->get('role_name') ?></p>
                             <p class="text-muted mb-4">Hello <?= session()->get('username') ?>, you can edit your profile here. Please be wise in using your username and profile photo.</p>

@@ -103,3 +103,9 @@ a {
     border: none;
     outline: none;
 }
+
+.img-profile-navbar{
+    width: 30px;
+    height: 30px;
+    background-image: url('/images/user-avatar/1677568091_885dd3fee39f8b39adee.png');
+}
