@@ -10,14 +10,14 @@
         <div class="card-body p-4">
           <div class="row">
             <div class="col-2 d-flex justify-content-center">
-              <img src="/images/wallet.png" alt="img-forum" class="w-100">
+              <img src="<?= $forum['photo'] ?>" alt="img-forum" class="w-100">
             </div>
             <div class="col-10">
               <div class="d-flex justify-content-between">
                 <h3 class="mb-3"><?= $forum['title'] ?></h3>
                 <span class="badge bg-success h-100"><?= strtoupper($forum['status_name']) ?></span>
               </div>
-              <p class="small mb-0">Dibuat oleh <strong><?= $forum['username'] ?></strong> pada <?= date('d F, Y', strtotime($forum['created_at'])) ?> Pukul <?= date('H:i', strtotime($forum['created_at'])) ?></p>
+              <p class="small mb-0">Dibuat oleh <strong><?= $forum['username'] ?></strong> pada <?= date('d F Y', strtotime($forum['created_at'])) ?> Pukul <?= date('H:i', strtotime($forum['created_at'])) ?></p>
               <hr class="my-4">
               <div class="d-flex justify-content-start align-items-center">
                 <a href="/detail-forum/<?= $forum['forum_id'] ?>" class="btn btn-primary" style="margin-right: 5px;">Menuju forum</a>

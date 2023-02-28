@@ -19,7 +19,13 @@ class ForumsController extends BaseController
             return redirect()->to('/');
         }
 
-        $forums = $forumModel->join('users', 'forums.user_id = users.user_id', 'left')->join('status', 'status.status_id = forums.status_id', 'left')->where('flag_active', '1')->where('forums.category_id', $param)->findAll();
+        $forums = $forumModel->join('users', 'forums.user_id = users.user_id', 'left')
+            ->join('status', 'status.status_id = forums.status_id', 'left')
+            ->join('categories', 'forums.category_id = categories.category_id')
+            ->where('flag_active', '1')
+            ->where('forums.category_id', $param)
+            ->select('forums.*, status.status_name, users.username, categories.photo')
+            ->findAll();
 
         // dd($forums);
         $data = [
@@ -34,7 +40,6 @@ class ForumsController extends BaseController
     {
         $categoriesModel = new Categories();
         $statusModel = new Status();
-
         $data = [
             'categories'    => $categoriesModel->findAll(),
             'statuses'      => $statusModel->whereNotIn('status_name', ['Ditutup'])->findAll()
@@ -45,7 +50,7 @@ class ForumsController extends BaseController
 
     public function store()
     {
-        // dd($this->request->getVar('latitude'));
+        // dd($this->request->getVar());
         $forumModel = new Forums();
         $photosModel = new Photos();
 
@@ -121,7 +126,7 @@ class ForumsController extends BaseController
 
         $photosModel->insertBatch($forumImage);
 
-        session()->setFlashdata('msg-add-forums', 'Sukses menambahkan forum baru!');
+        session()->setFlashdata('msg-update-forums', 'Sukses Update forum!');
         return redirect()->to('/forums/' . $this->request->getVar('category'));
     }
 
@@ -151,8 +156,112 @@ class ForumsController extends BaseController
         return view('pages/forums/detail-forum', $data);
     }
 
-    public function update()
+    public function edit($param)
     {
+        // dd($param);
+        $categoriesModel = new Categories();
+        $statusModel = new Status();
+        $forumModel = new Forums();
+        $photosModel = new Photos();
+
+        $photos = $photosModel->where('forum_id', $param)->findAll();
+
+        $forum = $forumModel->where('forum_id', $param)->where('flag_active', '1')->first();
+        if (!$forum) {
+            return redirect()->to('/');
+        }
+
+        $data = [
+            'categories'    => $categoriesModel->findAll(),
+            'statuses'      => $statusModel->whereNotIn('status_name', ['Ditutup'])->findAll(),
+            'forum'         => $forum,
+            'photos'        => $photos
+        ];
+
+        return view('pages/forums/edit-forum', $data);
+    }
+
+    public function update($param)
+    {
+        // dd($this->request->getVar());
+        $forumModel = new Forums();
+        $photosModel = new Photos();
+
+        $rules = [
+            'status'     => [
+                'rules'     => 'required',
+                'errors'    => [
+                    'required'      => 'Label harus diisi !'
+                ]
+            ],
+            'category'     => [
+                'rules'     => 'required',
+                'errors'    => [
+                    'required'      => 'Kategori harus diisi !'
+                ]
+            ],
+            'title'     => [
+                'rules'     => 'required',
+                'errors'    => [
+                    'required'      => 'Nama Forum harus diisi !'
+                ]
+            ],
+            'description'     => [
+                'rules'     => 'required|max_length[200]',
+                'errors'    => [
+                    'required'      => 'Nama Forum harus diisi !',
+                    'max_length'    => 'Maksimal deskripsi 200 karakter !'
+                ]
+            ],
+            'latitude'     => [
+                'rules'     => 'required',
+                'errors'    => [
+                    'required'      => 'Latitude harus diisi !'
+                ]
+            ],
+            'longitude'     => [
+                'rules'     => 'required',
+                'errors'    => [
+                    'required'      => 'Longitude harus diisi !'
+                ]
+            ]
+        ];
+
+        if (!$this->validate($rules)) {
+            session()->setFlashdata('err-update-forums', $this->validator->listErrors());
+            return redirect()->to('/edit-forum/' . $param)->withInput();
+        }
+
+        $forum = $forumModel->where('forum_id', $param)->first();
+
+        $dataForum = [
+            'category_id'   => $this->request->getVar('category'),
+            'user_id'   => $forum['user_id'],
+            'status_id'   => $this->request->getVar('status'),
+            'title'   => $this->request->getVar('title'),
+            'description'   => $this->request->getVar('description'),
+            'latitude'   => $this->request->getVar('latitude'),
+            'longitude'   => $this->request->getVar('longitude')
+        ];
+
+        $forumModel->update($param, $dataForum);
+
+        $file = $this->request->getFiles()['images'];
+        if ($file[0]->isValid()) {
+            $forumImage = array();
+            foreach ($file as $image) {
+                $newName = $image->getRandomName();
+                $image->move(ROOTPATH . 'public/images/forum', $newName);
+                array_push($forumImage, [
+                    'forum_id'  => $forum['forum_id'],
+                    'path'      => '/images/forum/' . $newName
+                ]);
+            }
+            $photosModel->insertBatch($forumImage);
+        }
+
+        session()->setFlashdata('msg-add-forums', 'Sukses menambahkan forum baru!');
+        return redirect()->to('/forums/' . $this->request->getVar('category'));
     }
 
     public function close_forum($param)

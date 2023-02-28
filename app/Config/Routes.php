@@ -39,6 +39,7 @@ $routes->get('/forums/(:any)', 'ForumsController::index/$1');
 // Route with login admin
 $routes->get('/add-forum', 'ForumsController::create', ['filter' => 'adminGuard']);
 $routes->get('/detail-forum/(:any)', 'ForumsController::show/$1', ['filter' => 'authGuard']);
+$routes->get('/edit-forum/(:any)', 'ForumsController::edit/$1');
 
 // Route with login
 $routes->get('/profile', 'ProfileController::index', ['filter' => 'authGuard']);
@@ -53,6 +54,7 @@ $routes->post('/post-comment/(:any)', 'CommentController::store/$1');
 $routes->post('/delete-comment/(:any)/(:any)', 'CommentController::delete/$1/$2');
 $routes->post('/close-forum/(:any)', 'ForumsController::close_forum/$1');
 $routes->post('/delete-forum/(:any)', 'ForumsController::delete_forum/$1');
+$routes->post('/update-forum/(:any)', 'ForumsController::update/$1');
 
 /*
  * --------------------------------------------------------------------

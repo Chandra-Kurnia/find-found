@@ -7,6 +7,7 @@ use CodeIgniter\Model;
 class Forums extends Model
 {
     protected $table            = 'forums';
+    protected $primaryKey       = 'forum_id';
     protected $allowedFields    = [
         'forum_id',
         'user_id',
