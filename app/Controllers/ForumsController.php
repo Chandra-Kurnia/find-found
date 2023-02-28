@@ -248,6 +248,14 @@ class ForumsController extends BaseController
 
         $file = $this->request->getFiles()['images'];
         if ($file[0]->isValid()) {
+            // Delete all file
+            $oldFiles = $photosModel->where('forum_id', $param)->findAll();
+            foreach($oldFiles as $oldFile){
+                unlink('.'.$oldFile['path']);
+                $photosModel->delete($oldFile['photo_id']);
+            }
+
+            // Insert new file
             $forumImage = array();
             foreach ($file as $image) {
                 $newName = $image->getRandomName();
