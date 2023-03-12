@@ -118,8 +118,11 @@
                                 <p class="mb-0">Foto barang / forum</p>
                             </div>
                             <div class="col-sm-9">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <input multiple type="file" id="gambar-forum" name="images[]" class="form-control" required>
+                                </div> -->
+                                <div class="drop-zone" onclick="handleFileSelect(event)" ondragover="handleDragOver(event)" ondrop="handleFileSelect(event)">
+                                    <p>Click atau drag and drop gambar</p>
                                 </div>
                                 <div class="row mt-3" id="preview-gambar-forum">
                                 </div>
@@ -158,4 +161,49 @@
         </div>
     </div>
 </div>
+<script>
+    let previewImagesContainer = document.getElementById("preview-gambar-forum");
+
+    function handleFileSelect(event) {
+        console.log(event);
+        event.stopPropagation();
+        event.preventDefault();
+        let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+
+        for (let i = 0; i < files.length; i++) {
+            let reader = new FileReader();
+
+            reader.onload = function(event) {
+                let img = document.createElement("img");
+                img.className = "preview-image";
+                img.src = event.target.result;
+                previewImagesContainer.appendChild(img);
+            };
+
+            reader.readAsDataURL(files[i]);
+        }
+    }
+
+    function handleDragOver(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "copy";
+    }
+
+    function previewImages() {
+
+        for (let i = 0; i < files.length; i++) {
+            let reader = new FileReader();
+
+            reader.onload = function(event) {
+                let img = document.createElement("img");
+                img.className = "preview-image";
+                img.src = event.target.result;
+                previewImagesContainer.appendChild(img);
+            };
+
+            reader.readAsDataURL(files[i]);
+        }
+    }
+</script>
 <?= $this->endSection() ?>

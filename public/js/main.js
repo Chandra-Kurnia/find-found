@@ -84,7 +84,6 @@ function initMap() {
 
       google.maps.event.addListener(marker, 'dragend');
     });
-
   } else {
     let map = new google.maps.Map(mapElement, {
       zoom: 10,
