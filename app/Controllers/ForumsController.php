@@ -141,7 +141,7 @@ class ForumsController extends BaseController
             ->where('forum_id', $param)
             ->select('forums.*, users.username, status.status_name')->first();
 
-        if(!$forum){
+        if (!$forum) {
             return redirect()->to('/');
         }
 
@@ -253,8 +253,8 @@ class ForumsController extends BaseController
         if ($file[0]->isValid()) {
             // Delete all file
             $oldFiles = $photosModel->where('forum_id', $param)->findAll();
-            foreach($oldFiles as $oldFile){
-                unlink('.'.$oldFile['path']);
+            foreach ($oldFiles as $oldFile) {
+                unlink('.' . $oldFile['path']);
                 $photosModel->delete($oldFile['photo_id']);
             }
 
@@ -289,5 +289,31 @@ class ForumsController extends BaseController
         $forumModel->set('flag_active', '0')->where('forum_id', $param)->update();
 
         return redirect()->to('/');
+    }
+
+    public function upload_image()
+    {
+        $photosModel = new Photos();
+
+        $image = $this->request->getFile('file');
+        $forum_id = $this->request->getVar('forum_id');
+        $newName = $image->getRandomName();
+        $image->move(ROOTPATH . 'public/images/forum', $newName);
+
+        $data = [
+            'forum_id'  => $forum_id,
+            'path'      => '/images/forum/' . $newName
+        ];
+
+        $photosModel->save($data);
+
+        $idImageInserted = $photosModel->getInsertID();
+        $responseData = [
+            'forum_id'  => $forum_id,
+            'path'      => '/images/forum/' . $newName,
+            'idImage'  => $idImageInserted
+        ];
+
+        return $this->response->setStatusCode(201)->setJSON($responseData);
     }
 }

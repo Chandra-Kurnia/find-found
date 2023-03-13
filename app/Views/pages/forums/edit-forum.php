@@ -12,6 +12,7 @@
                         </div>
                     <?php endif; ?>
                     <form action="/update-forum/<?= $forum['forum_id'] ?>" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="forum_id" value="<?= $forum['forum_id'] ?>">
                         <?= csrf_field() ?>
                         <h2>Update Forum</h2>
                         <hr>
@@ -74,16 +75,67 @@
                                 <p class="mb-0">Foto barang / forum</p>
                             </div>
                             <div class="col-sm-9">
-                                <div class="form-group">
-                                    <input multiple type="file" id="gambar-forum" name="images[]" class="form-control">
-                                </div>
-                                <div class="row mt-3" id="preview-gambar-forum">
+                                <div class="row" id="preview-gambar-forum">
                                     <?php foreach ($photos as $photo) : ?>
-                                        <div class="col-4">
-                                            <img src="<?= $photo['path'] ?>" alt="<?= $photo['path'] ?>" class="img-thumbnail">
+                                        <div class="col-4 img-forum-container" id="<?= $photo['photo_id'] ?>">
+                                            <div class="control-forum-container">
+                                                <span class="btn btn-primary button-control-forum-image" data-bs-toggle="modal" data-bs-target="#preview-modal-<?= $photo['photo_id'] ?>">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </span>
+                                                <span class="btn btn-danger button-control-forum-image" data-bs-toggle="modal" data-bs-target="#modal-delete-<?= $photo['photo_id'] ?>">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                            <img src="<?= $photo['path'] ?>" alt="<?= $photo['path'] ?>" class="img-thumbnail" id="<?= $photo['photo_id'] ?>">
                                         </div>
+
+                                        <!-- Modal Delete -->
+                                        <div class="modal fade" id="modal-delete-<?= $photo['photo_id'] ?>" tabindex="-1" aria-labelledby="modal-label-<?= $photo['photo_id'] ?>" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modal-label-<?= $photo['photo_id'] ?>">Delete gambar</h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah anda ingin menghapus gambar ini ?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-danger" onclick="handleDeleteImage(<?= $photo['photo_id'] ?>)">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Preview -->
+                                        <div class="modal fade" id="preview-modal-<?= $photo['photo_id'] ?>" tabindex="-1" aria-labelledby="previewModal<?= $photo['photo_id'] ?>" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="previewModal<?= $photo['photo_id'] ?>">Preview Image</h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img src="<?= $photo['path'] ?>" alt="<?= $photo['path'] ?>" class="img-thumbnail" id="<?= $photo['photo_id'] ?>">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Delete -->
+
                                     <?php endforeach; ?>
                                 </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label for="add-image-forum" class="add-image-forum">
+                                            <span>+</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <input multiple type="file" style="display: none;" id="add-image-forum">
                             </div>
                         </div>
                         <hr>
@@ -120,4 +172,9 @@
         </div>
     </div>
 </div>
+<script>
+    const handleDeleteImage = (id) => {
+        console.log(id)
+    }
+</script>
 <?= $this->endSection() ?>

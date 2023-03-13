@@ -56,6 +56,8 @@ $routes->post('/close-forum/(:any)', 'ForumsController::close_forum/$1');
 $routes->post('/delete-forum/(:any)', 'ForumsController::delete_forum/$1');
 $routes->post('/update-forum/(:any)', 'ForumsController::update/$1');
 $routes->post('/update-comment/(:any)/(:any)', 'CommentController::update/$1/$2');
+$routes->post('/upload-image', 'ForumsController::upload_image');
+$routes->get('/coba', 'ForumsController::coba');
 
 /*
  * --------------------------------------------------------------------

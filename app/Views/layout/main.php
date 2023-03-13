@@ -34,28 +34,44 @@
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
     <script>
         $(document).ready(function() {
-            // Event ketika input file dipilih
-            $('#gambar-forum').change(function(e) {
-                // Menghapus semua gambar yang sudah ditampilkan
-                $('#preview-gambar-forum').empty();
+            // Pilih gambar update
+            $('#add-image-forum').change(async (e) => {
+                try {
+                    for (let i = 0; i < e.target.files.length; i++) {
+                        // Upload file satu per satu
+                        let file = e.target.files[i];
+                        let forumId = $('#forum_id').val();
+                        const formData = new FormData();
+                        formData.append('file', file);
+                        formData.append('forum_id', forumId);
 
-                // Looping gambar yang dipilih
-                for (let i = 0; i < e.target.files.length; i++) {
-                    let file = e.target.files[i];
-                    let reader = new FileReader();
+                        const resp = await fetch('/upload-image', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Access-Control-Allow-Origin': '*'
+                            }
+                        });
 
-                    // Menampilkan gambar saat sudah terbaca
-                    reader.onload = function(e) {
-                        $('#preview-gambar-forum').append(`
-                            <div class="col-4">
-                            <img src="${e.target.result}" class="img-thumbnail">
-                            </div>
-                        `);
+                        const respJson = await resp.json();
+
+                        let reader = new FileReader();
+
+                        // Menampilkan gambar saat sudah terbaca
+                        reader.onload = function(e) {
+                            $('#preview-gambar-forum').append(`
+                                <div class="col-4" id="${respJson.idImage}">
+                                    <img src="${e.target.result}" class="img-thumbnail">
+                                </div>
+                            `);
+                        }
+
+                        reader.readAsDataURL(file);
                     }
-
-                    reader.readAsDataURL(file);
+                } catch (err) {
+                    console.log(err);
                 }
-            });
+            })
 
             $('#dropify').dropify();
         });
