@@ -9,9 +9,27 @@
       <div class="card mb-3" style="border-radius: 15px;">
         <div class="card-body p-4">
           <div class="row">
-            <div class="col-2 d-flex justify-content-center">
-              <img src="<?= $forum['photo'] ?>" alt="img-forum" class="w-100">
+            
+            <div class="col-2 d-flex justify-content-center overflow-hidden" style="width: 180px; height: 180px;">
+              <img src="<?= $forum['forum_cover'] ? $forum['forum_cover'] : $forum['photo'] ?>" alt="img-forum" class="w-100 img-cover" data-bs-toggle="modal" data-bs-target="#preview-modal-<?= $forum['forum_id'] ?>">
             </div>
+            <!-- Modal Preview -->
+            <div class="modal fade" id="preview-modal-<?= $forum['forum_id'] ?>" tabindex="-1" aria-labelledby="previewModal<?= $forum['forum_id'] ?>" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="previewModal<?= $forum['forum_id'] ?>">Preview</h5>
+                  </div>
+                  <div class="modal-body text-center">
+                    <img src="<?= $forum['forum_cover'] ? $forum['forum_cover'] : $forum['photo'] ?>" alt="<?= $forum['forum_cover'] ?>" class="img-thumbnail" id="<?= $forum['forum_id'] ?>">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="col-10">
               <div class="d-flex justify-content-between">
                 <h3 class="mb-3"><?= $forum['title'] ?></h3>

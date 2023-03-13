@@ -50,7 +50,6 @@ class ForumsController extends BaseController
 
     public function store()
     {
-        // dd($this->request->getVar());
         $forumModel = new Forums();
         $photosModel = new Photos();
 
@@ -80,6 +79,14 @@ class ForumsController extends BaseController
                     'max_length'    => 'Maksimal deskripsi 200 karakter !'
                 ]
             ],
+            'forum_cover'   => [
+                'rules'     => 'uploaded[forum_cover]|mime_in[forum_cover,image/jpg,image/jpeg,image/png]|max_size[forum_cover,5120]',
+                'errors'    => [
+                    'uploaded'      => 'Anda harus meng upload cover forum !',
+                    'mime_in'       => 'Gambar harus memiliki tipe .png, .jpg, atau .jpeg !',
+                    'max_size'      => 'Ukuran gambar maksimal adalah 5mb !'
+                ]
+            ],
             'latitude'     => [
                 'rules'     => 'required',
                 'errors'    => [
@@ -99,32 +106,37 @@ class ForumsController extends BaseController
             return redirect()->to('/add-forum')->withInput();
         }
 
+        $image_request = $this->request->getFile('forum_cover');
+        $new_name = $image_request->getRandomName();
+        $image_request->move(ROOTPATH . 'public/images/forum/forum_cover', $new_name);
+
         $dataForum = [
             'category_id'   => $this->request->getVar('category'),
             'user_id'   => session()->get('user_id'),
             'status_id'   => $this->request->getVar('status'),
             'title'   => $this->request->getVar('title'),
             'description'   => $this->request->getVar('description'),
+            'forum_cover'   => '/images/forum/forum_cover/' . $new_name,
             'latitude'   => $this->request->getVar('latitude'),
             'longitude'   => $this->request->getVar('longitude')
         ];
 
         $forumModel->save($dataForum);
 
-        $idForumInserted = $forumModel->getInsertID();
+        // $idForumInserted = $forumModel->getInsertID();
 
-        $imagesRequest = $this->request->getFiles()['images'];
-        $forumImage = array();
-        foreach ($imagesRequest as $image) {
-            $newName = $image->getRandomName();
-            $image->move(ROOTPATH . 'public/images/forum', $newName);
-            array_push($forumImage, [
-                'forum_id'  => $idForumInserted,
-                'path'      => '/images/forum/' . $newName
-            ]);
-        }
+        // $imagesRequest = $this->request->getFiles()['images'];
+        // $forumImage = array();
+        // foreach ($imagesRequest as $image) {
+        //     $newName = $image->getRandomName();
+        //     $image->move(ROOTPATH . 'public/images/forum', $newName);
+        //     array_push($forumImage, [
+        //         'forum_id'  => $idForumInserted,
+        //         'path'      => '/images/forum/' . $newName
+        //     ]);
+        // }
 
-        $photosModel->insertBatch($forumImage);
+        // $photosModel->insertBatch($forumImage);
 
         session()->setFlashdata('msg-update-forums', 'Sukses Update forum!');
         return redirect()->to('/forums/' . $this->request->getVar('category'));

@@ -73,17 +73,18 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0">Foto barang / forum</p>
+                                <p class="mb-0">Foto / Cover Forum</p>
                             </div>
                             <div class="col-sm-9">
                                 <!-- <div class="form-group">
                                     <input multiple type="file" id="gambar-forum" name="images[]" class="form-control" required>
                                 </div> -->
-                                <div class="drop-zone" onclick="handleFileSelect(event)" ondragover="handleDragOver(event)" ondrop="handleFileSelect(event)">
+                                <!-- <div class="drop-zone" onclick="handleFileSelect(event)" ondragover="handleDragOver(event)" ondrop="handleFileSelect(event)">
                                     <p>Click atau drag and drop gambar</p>
                                 </div>
                                 <div class="row mt-3" id="preview-gambar-forum">
-                                </div>
+                                </div> -->
+                                <input type="file" class="dropify" id="dropify" name="forum_cover" accept="image/*" required>
                             </div>
                         </div>
                         <hr>

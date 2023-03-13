@@ -15,6 +15,7 @@ class Forums extends Model
         'category_id',
         'title',
         'description',
+        'forum_cover',
         'latitude',
         'longitude',
         'flag_active'
