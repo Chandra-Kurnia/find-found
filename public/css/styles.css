@@ -148,3 +148,9 @@ a {
 .button-control-forum-image{
     margin-left: 5px;
 }
+
+.drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    cursor: pointer;
+  }
