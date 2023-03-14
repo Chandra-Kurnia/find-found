@@ -328,4 +328,18 @@ class ForumsController extends BaseController
 
         return $this->response->setStatusCode(201)->setJSON($responseData);
     }
+
+    public function unlink_image($idImage)
+    {
+        $photosModel = new Photos();
+        $photo_forum = $photosModel->find($idImage);
+
+        unlink('.' . $photo_forum['path']);
+        $photosModel->where('photo_id', $idImage)->delete();
+        $responseData = [
+            'message'   => 'Success unlink image',
+            'id_image'  => $idImage
+        ];
+        return $this->response->setStatusCode(200)->setJSON($responseData);
+    }
 }

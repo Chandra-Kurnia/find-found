@@ -60,8 +60,51 @@
                         // Menampilkan gambar saat sudah terbaca
                         reader.onload = function(e) {
                             $('#preview-gambar-forum').append(`
-                                <div class="col-4" id="${respJson.idImage}">
+                                <div class="col-4 img-forum-container" id="${respJson.idImage}">
+                                    <div class="control-forum-container">
+                                        <span class="btn btn-primary button-control-forum-image" data-bs-toggle="modal" data-bs-target="#preview-modal-${respJson.idImage}">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="btn btn-danger button-control-forum-image" data-bs-toggle="modal" data-bs-target="#modal-delete-${respJson.idImage}">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
                                     <img src="${e.target.result}" class="img-thumbnail">
+                                </div>
+
+                                <!-- Modal Delete -->
+                                <div class="modal fade" id="modal-delete-${respJson.idImage}" tabindex="-1" aria-labelledby="modal-label-${respJson.idImage}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modal-label-${respJson.idImage}">Delete gambar</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                Apakah anda ingin menghapus gambar ini ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-danger" onclick="handleDeleteImage(${respJson.idImage})">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal Preview -->
+                                <div class="modal fade" id="preview-modal-${respJson.idImage}" tabindex="-1" aria-labelledby="previewModal${respJson.idImage}" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="previewModal${respJson.idImage}">Preview Image</h5>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <img src="${e.target.result}" alt="${e.target.result}" class="img-thumbnail" id="${respJson.idImage}">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             `);
                         }

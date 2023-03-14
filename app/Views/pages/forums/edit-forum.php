@@ -72,11 +72,21 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
+                                <p class="mb-0">Foto / Cover Forum</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="file" class="dropify" id="dropify" name="forum_cover" accept="image/*" data-default-file="<?= $forum['forum_cover'] ?>" required>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
                                 <p class="mb-0">Foto barang / forum</p>
                             </div>
                             <div class="col-sm-9">
                                 <div class="row" id="preview-gambar-forum">
                                     <?php foreach ($photos as $photo) : ?>
+
                                         <div class="col-4 img-forum-container" id="<?= $photo['photo_id'] ?>">
                                             <div class="control-forum-container">
                                                 <span class="btn btn-primary button-control-forum-image" data-bs-toggle="modal" data-bs-target="#preview-modal-<?= $photo['photo_id'] ?>">
@@ -114,7 +124,7 @@
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="previewModal<?= $photo['photo_id'] ?>">Preview Image</h5>
                                                     </div>
-                                                    <div class="modal-body">
+                                                    <div class="modal-body text-center">
                                                         <img src="<?= $photo['path'] ?>" alt="<?= $photo['path'] ?>" class="img-thumbnail" id="<?= $photo['photo_id'] ?>">
                                                     </div>
                                                     <div class="modal-footer">
@@ -123,8 +133,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!-- Modal Delete -->
 
                                     <?php endforeach; ?>
                                 </div>
@@ -173,8 +181,24 @@
     </div>
 </div>
 <script>
-    const handleDeleteImage = (id) => {
-        console.log(id)
+    const handleDeleteImage = async (id) => {
+        try {
+            const resp = await fetch(`/unlink-image/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Access-Control-Allow-Origin': '*'
+                }
+            });
+            
+            $(`#modal-delete-${id}`).modal('hide');
+
+            $(`#${id}`).remove();
+            $(`#modal-delete-${id}`).remove();
+            $(`#preview-modal-${id}`).remove();
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 </script>
 <?= $this->endSection() ?>
