@@ -239,6 +239,13 @@ class ForumsController extends BaseController
                 'errors'    => [
                     'required'      => 'Longitude harus diisi !'
                 ]
+            ],
+            'forum_cover'   => [
+                'rules'     => 'mime_in[forum_cover,image/jpg,image/jpeg,image/png]|max_size[forum_cover,5120]',
+                'errors'    => [
+                    'mime_in'       => 'Gambar harus memiliki tipe .png, .jpg, atau .jpeg !',
+                    'max_size'      => 'Ukuran gambar maksimal adalah 5mb !'
+                ]
             ]
         ];
 
@@ -249,39 +256,52 @@ class ForumsController extends BaseController
 
         $forum = $forumModel->where('forum_id', $param)->first();
 
+        $file = $this->request->getFile('forum_cover');
+        $forum_cover = $forum['forum_cover'];
+
+        if ($file->isValid()) {
+            if($forum['forum_cover']){
+                unlink('.' . $forum['forum_cover']);
+            }
+            $newName = $file->getRandomName();
+            $file->move(ROOTPATH . 'public/images/forum/forum_cover', $newName);
+            $forum_cover = '/images/forum/forum_cover/' . $newName;
+        }
+
         $dataForum = [
             'category_id'   => $this->request->getVar('category'),
             'user_id'   => $forum['user_id'],
             'status_id'   => $this->request->getVar('status'),
             'title'   => $this->request->getVar('title'),
             'description'   => $this->request->getVar('description'),
+            'forum_cover'   => $forum_cover,
             'latitude'   => $this->request->getVar('latitude'),
             'longitude'   => $this->request->getVar('longitude')
         ];
 
         $forumModel->update($param, $dataForum);
 
-        $file = $this->request->getFiles()['images'];
-        if ($file[0]->isValid()) {
-            // Delete all file
-            $oldFiles = $photosModel->where('forum_id', $param)->findAll();
-            foreach ($oldFiles as $oldFile) {
-                unlink('.' . $oldFile['path']);
-                $photosModel->delete($oldFile['photo_id']);
-            }
+        // $file = $this->request->getFiles('forum_cover');
+        // if ($file[0]->isValid()) {
+        //     // Delete all file
+        //     $oldFiles = $photosModel->where('forum_id', $param)->findAll();
+        //     foreach ($oldFiles as $oldFile) {
+        //         unlink('.' . $oldFile['path']);
+        //         $photosModel->delete($oldFile['photo_id']);
+        //     }
 
-            // Insert new file
-            $forumImage = array();
-            foreach ($file as $image) {
-                $newName = $image->getRandomName();
-                $image->move(ROOTPATH . 'public/images/forum', $newName);
-                array_push($forumImage, [
-                    'forum_id'  => $forum['forum_id'],
-                    'path'      => '/images/forum/' . $newName
-                ]);
-            }
-            $photosModel->insertBatch($forumImage);
-        }
+        //     // Insert new file
+        //     $forumImage = array();
+        //     foreach ($file as $image) {
+        //         $newName = $image->getRandomName();
+        //         $image->move(ROOTPATH . 'public/images/forum', $newName);
+        //         array_push($forumImage, [
+        //             'forum_id'  => $forum['forum_id'],
+        //             'path'      => '/images/forum/' . $newName
+        //         ]);
+        //     }
+        //     $photosModel->insertBatch($forumImage);
+        // }
 
         session()->setFlashdata('msg-add-forums', 'Sukses menambahkan forum baru!');
         return redirect()->to('/forums/' . $this->request->getVar('category'));
